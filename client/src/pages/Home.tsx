@@ -45,7 +45,7 @@ export function Home() {
               className="text-4xl md:text-6xl lg:text-7xl font-extrabold text-foreground tracking-tight max-w-4xl mb-6"
             >
               Know What's In Your <br className="hidden md:block" />
-              <span className="text-gradient">Intimate Care Products</span>
+              <span className="text-gradient">Feminine Care Products</span>
             </motion.h1>
             
             <motion.p 
