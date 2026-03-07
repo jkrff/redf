@@ -4,7 +4,7 @@ import {
   type CreateProductRequest,
   type ProductResponse
 } from "@shared/schema";
-import { eq, ilike } from "drizzle-orm";
+import { eq, like } from "drizzle-orm";
 
 export interface IStorage {
   getProducts(search?: string): Promise<ProductResponse[]>;
@@ -15,7 +15,7 @@ export interface IStorage {
 export class DatabaseStorage implements IStorage {
   async getProducts(search?: string): Promise<ProductResponse[]> {
     if (search) {
-      return await db.select().from(products).where(ilike(products.name, `%${search}%`));
+      return await db.select().from(products).where(like(products.name, `%${search}%`));
     }
     return await db.select().from(products);
   }
@@ -26,7 +26,10 @@ export class DatabaseStorage implements IStorage {
   }
 
   async createProduct(product: CreateProductRequest): Promise<ProductResponse> {
-    const [created] = await db.insert(products).values(product).returning();
+    await db.insert(products).values(product);
+    const [created] = await db.select().from(products)
+      .where(eq(products.name, product.name))
+      .limit(1);
     return created;
   }
 }
