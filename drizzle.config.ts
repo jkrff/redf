@@ -1,10 +1,10 @@
 import { defineConfig } from "drizzle-kit";
 
 export default defineConfig({
-  out: "./migrations",
+  out: "./drizzle",
   schema: "./shared/schema.ts",
-  dialect: "mysql",
+  dialect: "postgresql",
   dbCredentials: {
-    url: "mysql://root:root@localhost:3306/redf",
+    url: "postgresql://postgres.woihfoxzxhbxwzkhyffn:hackathonproject@aws-1-us-east-1.pooler.supabase.com:5432/postgres",
   },
 });
