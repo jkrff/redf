@@ -4,11 +4,7 @@
   "type": "module",
   "license": "MIT",
   "scripts": {
-<<<<<<< HEAD
-    "dev": "cross-env NODE_ENV=development tsx Menstrual-Safety-Scanner/server/index.ts",
-=======
     "dev": "cross-env NODE_ENV=development tsx server/index.ts",
->>>>>>> b47a8ef319ff6f95f745483f8f6561b7d301a9a6
     "build": "tsx script/build.ts",
     "start": "NODE_ENV=production node dist/index.cjs",
     "check": "tsc",
@@ -48,10 +44,6 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "cmdk": "^1.1.1",
-<<<<<<< HEAD
-    "connect-pg-simple": "^10.0.0",
-=======
->>>>>>> b47a8ef319ff6f95f745483f8f6561b7d301a9a6
     "cross-env": "^10.1.0",
     "date-fns": "^3.6.0",
     "dotenv": "^17.3.1",
