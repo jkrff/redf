@@ -182,7 +182,6 @@ export function ProductDetail() {
                   </ul>
                 ) : (
                   <div className="flex flex-col items-center justify-center py-8 text-center">
-                    <ShieldCheck className="w-16 h-16 text-emerald-500 mb-4 opacity-50" />
                     <p className="text-emerald-800 dark:text-emerald-300 font-semibold max-w-xs">
                       Based on current data, no significant health hazards have been identified for this product's ingredients.
                     </p>
