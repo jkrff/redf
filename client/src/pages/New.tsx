@@ -6,22 +6,21 @@ import { Header } from "@/components/layout/Header";
 
 const PRODUCT_TYPES = ["Pad", "Tampon", "Liner", "Cup", "Other"];
 
+const emptyForm = {
+  brand: "",
+  name: "",
+  productType: "",
+  ingredients: "",
+  imageUrl: "",
+};
+
 export function NewProduct() {
-  const [formData, setFormData] = useState({
-    brand: "",
-    name: "",
-    type: "",
-    safetyScore: "",
-    ingredients: "",
-    imageUrl: "",
-  });
+  const [formData, setFormData] = useState(emptyForm);
   const [submitted, setSubmitted] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
 
   const handleChange = (
-    e: React.ChangeEvent<
-      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
-    >
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
@@ -32,9 +31,8 @@ export function NewProduct() {
     const newErrors: Record<string, string> = {};
     if (!formData.brand.trim()) newErrors.brand = "Brand name is required.";
     if (!formData.name.trim()) newErrors.name = "Product name is required.";
-    if (!formData.type) newErrors.type = "Please select a product type.";
-    if (!formData.ingredients.trim())
-      newErrors.ingredients = "At least one ingredient is required.";
+    if (!formData.productType) newErrors.productType = "Please select a product type.";
+    if (!formData.ingredients.trim()) newErrors.ingredients = "At least one ingredient is required.";
     return newErrors;
   };
 
@@ -51,13 +49,11 @@ export function NewProduct() {
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
-
       <main className="flex-1">
         {/* Hero Banner */}
         <section className="relative pt-16 pb-20 overflow-hidden">
           <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[50%] rounded-full bg-primary/10 blur-[100px] pointer-events-none" />
           <div className="absolute bottom-[-10%] right-[-10%] w-[30%] h-[40%] rounded-full bg-secondary/30 blur-[100px] pointer-events-none" />
-
           <div className="container mx-auto px-4 md:px-6 relative z-10 flex flex-col items-center text-center">
             <Link href="/">
               <a className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-primary transition-colors mb-8">
@@ -72,19 +68,9 @@ export function NewProduct() {
               transition={{ duration: 0.5, delay: 0.1 }}
               className="text-4xl md:text-6xl font-extrabold text-foreground tracking-tight max-w-3xl mb-4"
             >
-              Add a{" "}
-              <span className="text-gradient">New Product</span>
+              Add a <span className="text-gradient">New Product</span>
             </motion.h1>
 
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              className="text-lg text-muted-foreground max-w-xl"
-            >
-              Submit a feminine care product so others can see its ingredients
-              and safety information.
-            </motion.p>
           </div>
         </section>
 
@@ -100,22 +86,13 @@ export function NewProduct() {
                 <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-6">
                   <PlusCircle className="w-8 h-8 text-primary" />
                 </div>
-                <h2 className="text-2xl font-bold text-foreground mb-2">
-                  Product Submitted!
-                </h2>
+                <h2 className="text-2xl font-bold text-foreground mb-2">Product Submitted!</h2>
+                <p className="text-muted-foreground mb-8">
+                  Product added. <strong>{formData.brand} – {formData.name}</strong> is under review.
+                </p>
                 <div className="flex flex-col sm:flex-row gap-3 justify-center">
                   <button
-                    onClick={() => {
-                      setSubmitted(false);
-                      setFormData({
-                        brand: "",
-                        name: "",
-                        type: "",
-                        safetyScore: "",
-                        ingredients: "",
-                        imageUrl: "",
-                      });
-                    }}
+                    onClick={() => { setSubmitted(false); setFormData(emptyForm); }}
                     className="px-7 py-3 rounded-full bg-primary text-primary-foreground font-bold shadow-md hover:bg-primary/90 active:scale-95 transition-all"
                   >
                     Add Another
@@ -131,50 +108,58 @@ export function NewProduct() {
               >
                 {/* Brand & Product Name */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                  <Field
-                    label="Brand: "
-                    error={errors.brand}
-                  >
+                  <Field label="Brand *" error={errors.brand}>
                     <input
-                      name="Brand"
+                      name="brand"
                       value={formData.brand}
                       onChange={handleChange}
-                      placeholder="Insert brand name"
+                      placeholder="e.g. Always, Tampax"
                       className={inputCls(!!errors.brand)}
                     />
                   </Field>
-                  <Field label="Product Name: " error={errors.name}>
+                  <Field label="Product Name *" error={errors.name}>
                     <input
-                      name="Name"
+                      name="name"
                       value={formData.name}
                       onChange={handleChange}
-                      placeholder="Insert product name"
+                      placeholder="e.g. Ultra Thin Overnight"
                       className={inputCls(!!errors.name)}
                     />
                   </Field>
                 </div>
 
+                {/* Product Type */}
+                <Field label="Product Type *" error={errors.productType}>
+                  <div className="relative">
+                    <select
+                      name="productType"
+                      value={formData.productType}
+                      onChange={handleChange}
+                      className={`${inputCls(!!errors.productType)} appearance-none pr-10`}
+                    >
+                      <option value="">Select type…</option>
+                      {PRODUCT_TYPES.map((t) => (
+                        <option key={t} value={t}>{t}</option>
+                      ))}
+                    </select>
+                    <ChevronDown className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                  </div>
+                </Field>
+
                 {/* Ingredients */}
-                <Field
-                  label="Ingredients *"
-                  hint="Comma-separated list from the product label."
-                  error={errors.ingredients}
-                >
+                <Field label="Ingredients *" hint="Comma-separated list from the product label." error={errors.ingredients}>
                   <textarea
                     name="ingredients"
                     value={formData.ingredients}
                     onChange={handleChange}
                     rows={4}
-                    placeholder="Paste indgreints list here"
+                    placeholder="Cotton, Rayon, Fragrance, Polyethylene…"
                     className={inputCls(!!errors.ingredients)}
                   />
                 </Field>
 
                 {/* Image URL */}
-                <Field
-                  label="Product Image URL (optional)"
-                  hint="A direct link to a product photo."
-                >
+                <Field label="Product Image URL (optional)" hint="A direct link to a product photo.">
                   <div className="relative">
                     <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-muted-foreground">
                       <Upload className="w-4 h-4" />
@@ -213,8 +198,6 @@ export function NewProduct() {
   );
 }
 
-/* Helpers */
-
 function inputCls(hasError: boolean) {
   return [
     "w-full px-4 py-3 rounded-xl bg-muted/40 border text-foreground placeholder:text-muted-foreground",
@@ -226,15 +209,9 @@ function inputCls(hasError: boolean) {
 }
 
 function Field({
-  label,
-  hint,
-  error,
-  children,
+  label, hint, error, children,
 }: {
-  label: string;
-  hint?: string;
-  error?: string;
-  children: React.ReactNode;
+  label: string; hint?: string; error?: string; children: React.ReactNode;
 }) {
   return (
     <div className="flex flex-col gap-1.5">
