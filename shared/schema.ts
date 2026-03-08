@@ -1,15 +1,15 @@
-import { pgTable, text, serial, integer, jsonb } from "drizzle-orm/pg-core";
+import { mysqlTable, text, serial, int, json } from "drizzle-orm/mysql-core";
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
 
-export const products = pgTable("products", {
+export const products = mysqlTable("products", {
   id: serial("id").primaryKey(),
   name: text("name").notNull(),
   brand: text("brand").notNull(),
-  productType: text("product_type").notNull(), // e.g., 'pad', 'tampon', 'cup', 'liner'
-  safetyScore: integer("safety_score").notNull(), // 0 to 100
-  ingredients: jsonb("ingredients").notNull().$type<string[]>(),
-  hazards: jsonb("hazards").notNull().$type<string[]>(),
+  productType: text("product_type").notNull(),
+  safetyScore: int("safety_score").notNull(),
+  ingredients: json("ingredients").notNull().$type<string[]>(),
+  hazards: json("hazards").notNull().$type<string[]>(),
   imageUrl: text("image_url"),
 });
 
