@@ -28,15 +28,6 @@ export function Home() {
           <div className="absolute bottom-[-10%] right-[-10%] w-[30%] h-[40%] rounded-full bg-secondary/30 blur-[100px] pointer-events-none" />
           
           <div className="container mx-auto px-4 md:px-6 relative z-10 flex flex-col items-center text-center">
-            <motion.div 
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-primary/20 text-sm font-medium text-primary shadow-sm mb-6"
-            >
-              <Info className="w-4 h-4" />
-              Empowering informed choices for your body
-            </motion.div>
             
             <motion.h1 
               initial={{ opacity: 0, y: 20 }}

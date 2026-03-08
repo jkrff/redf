@@ -2,7 +2,7 @@ import { Link } from "wouter";
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { PlusCircle, Upload, ChevronDown, ArrowLeft, Sparkles } from "lucide-react";
-import { Header } from "@/components/Header";
+import { Header } from "@/components/layout/Header";
 
 const PRODUCT_TYPES = ["Pad", "Tampon", "Liner", "Cup", "Other"];
 

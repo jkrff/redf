@@ -7,11 +7,13 @@ import NotFound from "@/pages/not-found";
 import { Home } from "./pages/Home";
 import { ProductDetail } from "./pages/ProductDetail";
 import { NewProduct } from "./pages/New";
+import { ShieldCheck } from "lucide-react";
 
 function Router() {
   return (
     <Switch>
       <Route path="/" component={Home} />
+      <Route path="/home" component={Home} />
       <Route path="/product/:id" component={ProductDetail} />
       <Route path="/new" component={NewProduct} />
       <Route component={NotFound} />
