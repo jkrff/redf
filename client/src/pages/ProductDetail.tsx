@@ -191,7 +191,7 @@ export function ProductDetail() {
               
               {/* Disclaimer Card */}
               <div className="bg-muted/50 rounded-2xl p-6 border border-border text-sm text-muted-foreground leading-relaxed">
-                <strong>Disclaimer:</strong> The safety score and hazard information provided are for educational purposes only and are based on aggregated public databases. They do not constitute medical advice. Always consult with a healthcare professional regarding intimate health concerns.
+                <strong>Disclaimer:</strong> The safety score and hazard information provided do not constitute medical advice. Consult with a professional regarding health concerns.
               </div>
             </motion.div>
 
